@@ -54,12 +54,18 @@ export default function DailyExpensesList({
 
     if (!confirmar) return;
 
-    await supabase
-      .from("daily_expenses")
-      .delete()
-      .eq("id", id);
+    const { error } = await supabase
+  .from("daily_expenses")
+  .delete()
+  .eq("id", id);
 
-    router.refresh();
+if (error) {
+  alert(error.message);
+  console.log(error);
+  return;
+}
+
+window.location.reload();
   }
 
   async function handleEdit(
@@ -74,14 +80,20 @@ export default function DailyExpensesList({
 
     if (!novoValor) return;
 
-    await supabase
-      .from("daily_expenses")
-      .update({
-        amount: Number(novoValor),
-      })
-      .eq("id", id);
+    const { error } = await supabase
+  .from("daily_expenses")
+  .update({
+    amount: Number(novoValor),
+  })
+  .eq("id", id);
 
-    router.refresh();
+if (error) {
+  alert(error.message);
+  console.log(error);
+  return;
+}
+
+window.location.reload();
   }
 
   const groupedExpenses = expenses.reduce(
