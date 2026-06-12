@@ -60,32 +60,51 @@ export default function TransactionsList({
   }
 
   return (
-    <div className="grid md:grid-cols-3 gap-6">
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
       {transactions.map((transaction) => (
 
         <div
           key={transaction.id}
-          className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800"
+          className="
+          bg-zinc-900
+          rounded-3xl
+          p-6
+          border border-zinc-800
+          shadow-lg
+          "
         >
 
-          <h3 className="text-xl font-bold mb-2">
+          <h3 className="text-2xl font-bold mb-2">
             {transaction.description}
           </h3>
 
-          <p className="text-zinc-400 mb-4">
+          <p className="text-zinc-400 mb-5">
             {transaction.category}
           </p>
 
-          <p
-            className={`text-2xl font-bold mb-6 ${
-              transaction.type === "Receita"
-                ? "text-green-400"
-                : "text-red-400"
-            }`}
-          >
-            R$ {Number(transaction.amount).toLocaleString("pt-BR")}
-          </p>
+          <div className="mb-6">
+
+            <span className="text-zinc-400">
+              {transaction.type}
+            </span>
+
+            <br />
+
+            <span
+              className={`text-3xl font-bold ${
+                transaction.type === "Receita"
+                  ? "text-green-400"
+                  : "text-red-400"
+              }`}
+            >
+              R$ {Number(
+                transaction.amount
+              ).toLocaleString("pt-BR")}
+            </span>
+
+          </div>
 
           <div className="flex gap-3">
 
@@ -96,7 +115,14 @@ export default function TransactionsList({
                   transaction.amount
                 )
               }
-              className="bg-blue-600 px-4 py-2 rounded-xl"
+              className="
+              flex-1
+              bg-blue-600
+              py-2
+              rounded-xl
+              text-sm
+              font-bold
+              "
             >
               ✏️ Editar
             </button>
@@ -105,9 +131,16 @@ export default function TransactionsList({
               onClick={() =>
                 handleDelete(transaction.id)
               }
-              className="bg-red-600 px-4 py-2 rounded-xl"
+              className="
+              flex-1
+              bg-red-600
+              py-2
+              rounded-xl
+              text-sm
+              font-bold
+              "
             >
-              🗑️ Excluir
+              🗑 Excluir
             </button>
 
           </div>
@@ -117,5 +150,6 @@ export default function TransactionsList({
       ))}
 
     </div>
+
   );
 }

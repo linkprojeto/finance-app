@@ -96,11 +96,13 @@ export default function DailyExpensesList({
       groups[date].push(expense);
 
       return groups;
+
     },
     {} as Record<string, Expense[]>
   );
 
   return (
+
     <div className="space-y-8">
 
       {Object.entries(groupedExpenses).map(
@@ -115,7 +117,13 @@ export default function DailyExpensesList({
 
             <div
               key={date}
-              className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800"
+              className="
+              bg-zinc-900
+              rounded-3xl
+              p-6
+              border border-zinc-800
+              shadow-lg
+              "
             >
 
               <h2 className="text-2xl font-bold mb-6">
@@ -128,16 +136,16 @@ export default function DailyExpensesList({
 
                   <div
                     key={item.id}
-                    className="border-b border-zinc-800 pb-4"
+                    className="border-b border-zinc-800 pb-5"
                   >
 
-                    <div className="flex justify-between mb-3">
+                    <div className="flex justify-between mb-4">
 
-                      <span>
+                      <span className="font-medium">
                         {item.description}
                       </span>
 
-                      <span className="text-red-400">
+                      <span className="text-red-400 font-bold">
                         R$ {Number(item.amount).toLocaleString("pt-BR")}
                       </span>
 
@@ -152,7 +160,14 @@ export default function DailyExpensesList({
                             item.amount
                           )
                         }
-                        className="bg-blue-600 px-4 py-2 rounded-xl"
+                        className="
+                        flex-1
+                        bg-blue-600
+                        py-2
+                        rounded-xl
+                        text-sm
+                        font-bold
+                        "
                       >
                         ✏️ Editar
                       </button>
@@ -161,9 +176,16 @@ export default function DailyExpensesList({
                         onClick={() =>
                           handleDelete(item.id)
                         }
-                        className="bg-red-600 px-4 py-2 rounded-xl"
+                        className="
+                        flex-1
+                        bg-red-600
+                        py-2
+                        rounded-xl
+                        text-sm
+                        font-bold
+                        "
                       >
-                        🗑️ Excluir
+                        🗑 Excluir
                       </button>
 
                     </div>
@@ -176,13 +198,17 @@ export default function DailyExpensesList({
 
               <hr className="my-6 border-zinc-700" />
 
-              <p className="font-bold text-xl">
-                Total do dia:
+              <div className="flex justify-between items-center">
 
-                <span className="text-red-400 ml-2">
+                <span className="font-bold text-lg">
+                  Total do dia
+                </span>
+
+                <span className="text-red-400 text-xl font-bold">
                   R$ {totalDay.toLocaleString("pt-BR")}
                 </span>
-              </p>
+
+              </div>
 
             </div>
 
@@ -191,5 +217,6 @@ export default function DailyExpensesList({
       )}
 
     </div>
+
   );
 }

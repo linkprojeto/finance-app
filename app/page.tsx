@@ -69,11 +69,11 @@ export default async function Home() {
   const monthlyBalance = totalRevenue - totalExpenses;
 
   return (
-    <div className="flex min-h-screen bg-black text-white">
+    <div className="md:flex min-h-screen bg-black text-white">
 
-      <Sidebar />
+<Sidebar />
 
-      <main className="flex-1 p-10">
+<main className="flex-1 p-4 pt-20 md:pt-10 md:p-10">
 
         <h1 className="text-4xl font-bold mb-10">
           Dashboard Financeiro 💰
