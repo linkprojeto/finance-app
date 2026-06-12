@@ -1,7 +1,6 @@
 "use client";
 
 import { supabase } from "../lib/supabase";
-import { useRouter } from "next/navigation";
 
 interface Expense {
   id: string;
@@ -17,8 +16,6 @@ interface Props {
 export default function DailyExpensesList({
   expenses,
 }: Props) {
-
-  const router = useRouter();
 
   function formatDate(dateString: string) {
 
@@ -55,17 +52,19 @@ export default function DailyExpensesList({
     if (!confirmar) return;
 
     const { error } = await supabase
-  .from("daily_expenses")
-  .delete()
-  .eq("id", id);
+      .from("daily_expenses")
+      .delete()
+      .eq("id", id);
 
-if (error) {
-  alert(error.message);
-  console.log(error);
-  return;
-}
+    if (error) {
+      alert(error.message);
+      console.log(error);
+      return;
+    }
 
-window.location.reload();
+    alert("Gasto excluído com sucesso!");
+
+    window.location.reload();
   }
 
   async function handleEdit(
@@ -81,19 +80,21 @@ window.location.reload();
     if (!novoValor) return;
 
     const { error } = await supabase
-  .from("daily_expenses")
-  .update({
-    amount: Number(novoValor),
-  })
-  .eq("id", id);
+      .from("daily_expenses")
+      .update({
+        amount: Number(novoValor),
+      })
+      .eq("id", id);
 
-if (error) {
-  alert(error.message);
-  console.log(error);
-  return;
-}
+    if (error) {
+      alert(error.message);
+      console.log(error);
+      return;
+    }
 
-window.location.reload();
+    alert("Gasto atualizado com sucesso!");
+
+    window.location.reload();
   }
 
   const groupedExpenses = expenses.reduce(
@@ -158,7 +159,12 @@ window.location.reload();
                       </span>
 
                       <span className="text-red-400 font-bold">
-                        R$ {Number(item.amount).toLocaleString("pt-BR")}
+                        R$ {Number(item.amount).toLocaleString(
+                          "pt-BR",
+                          {
+                            minimumFractionDigits: 2,
+                          }
+                        )}
                       </span>
 
                     </div>
@@ -217,7 +223,9 @@ window.location.reload();
                 </span>
 
                 <span className="text-red-400 text-xl font-bold">
-                  R$ {totalDay.toLocaleString("pt-BR")}
+                  R$ {totalDay.toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                  })}
                 </span>
 
               </div>
