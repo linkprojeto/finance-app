@@ -1,7 +1,6 @@
 "use client";
 
 import { supabase } from "../lib/supabase";
-import { useRouter } from "next/navigation";
 
 interface Account {
   id: string;
@@ -15,8 +14,6 @@ interface Props {
 
 export default function AccountsList({ accounts }: Props) {
 
-  const router = useRouter();
-
   async function handleDelete(id: string) {
 
     const confirmar = confirm(
@@ -25,12 +22,18 @@ export default function AccountsList({ accounts }: Props) {
 
     if (!confirmar) return;
 
-    await supabase
+    const { error } = await supabase
       .from("accounts")
       .delete()
       .eq("id", id);
 
-    router.refresh();
+    if (error) {
+      alert(error.message);
+      console.log(error);
+      return;
+    }
+
+    window.location.reload();
   }
 
   async function handleEdit(
@@ -45,14 +48,20 @@ export default function AccountsList({ accounts }: Props) {
 
     if (!novoValor) return;
 
-    await supabase
+    const { error } = await supabase
       .from("accounts")
       .update({
         balance: Number(novoValor),
       })
       .eq("id", id);
 
-    router.refresh();
+    if (error) {
+      alert(error.message);
+      console.log(error);
+      return;
+    }
+
+    window.location.reload();
   }
 
   return (
@@ -94,14 +103,7 @@ export default function AccountsList({ accounts }: Props) {
                   account.balance
                 )
               }
-              className="
-              flex-1
-              bg-blue-600
-              py-2
-              rounded-xl
-              text-sm
-              font-bold
-              "
+              className="flex-1 bg-blue-600 py-2 rounded-xl text-sm font-bold"
             >
               ✏️ Editar
             </button>
@@ -110,14 +112,7 @@ export default function AccountsList({ accounts }: Props) {
               onClick={() =>
                 handleDelete(account.id)
               }
-              className="
-              flex-1
-              bg-red-600
-              py-2
-              rounded-xl
-              text-sm
-              font-bold
-              "
+              className="flex-1 bg-red-600 py-2 rounded-xl text-sm font-bold"
             >
               🗑 Excluir
             </button>

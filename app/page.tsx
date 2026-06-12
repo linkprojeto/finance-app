@@ -6,6 +6,7 @@ import InvestmentsList from "../components/InvestmentsList";
 import TransactionsList from "../components/TransactionsList";
 import PatrimonyChart from "../components/PatrimonyChart";
 import DailyExpensesList from "../components/DailyExpensesList";
+import Header from "../components/Header";
 
 export default async function Home() {
 
@@ -75,9 +76,7 @@ export default async function Home() {
 
 <main className="flex-1 p-4 pt-20 md:pt-10 md:p-10">
 
-        <h1 className="text-4xl font-bold mb-10">
-          Dashboard Financeiro 💰
-        </h1>
+        <Header />
 
         {/* Cards Superiores */}
         <div className="grid md:grid-cols-4 gap-6 mb-12">
