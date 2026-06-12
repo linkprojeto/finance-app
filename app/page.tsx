@@ -184,6 +184,10 @@ export default async function Home() {
   🗓️ Gastos Diários
 </h2>
 
+<p className="text-green-400 mb-4">
+  Quantidade de gastos: {dailyExpenses?.length}
+</p>
+
 <DailyExpensesList expenses={dailyExpenses || []} />
       </main>
 
